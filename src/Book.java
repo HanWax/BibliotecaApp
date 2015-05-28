@@ -1,12 +1,10 @@
-/**
- * Created by hannahwaxman on 28/05/15.
- */
+
 public class Book {
 
     private String title;
     private String author;
     private int year;
-    private Boolean isAvailable = true;
+    Boolean isAvailable = true;
 
     Book(String title, String author, int year) {
         this.title = title;
