@@ -8,7 +8,9 @@ public class MainMenu {
     private int menuSize;
 
     public void addOption(String option) {
+
         menuOptions.add(option);
+        setMenuSize();
     }
 
     public String displayMenu() {
