@@ -13,7 +13,7 @@ public class CollectionManager {
         String bookList = "";
         for (Book book : bookCollection) {
             if (book.isAvailable) {
-                bookList += book.getTitle() + " ";
+                bookList += book.getTitle() + " by " +  book.getAuthor() + ", " + book.getYear();
             }
         }
         return bookList;
