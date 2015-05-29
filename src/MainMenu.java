@@ -4,7 +4,8 @@ import java.util.Scanner;
 public class MainMenu {
 
     private ArrayList<String> menuOptions = new ArrayList<>();
-    private String userChoice;
+    private int userChoice;
+    private int menuSize;
 
     public void addOption(String option) {
         menuOptions.add(option);
@@ -19,11 +20,30 @@ public class MainMenu {
         return menu;
     }
 
-    public String getUserChoice() {
+    public void setMenuSize() {
+        menuSize = menuOptions.size();
+    }
+
+    public int getMenuSize() {
+        return menuSize;
+    }
+
+    public void setUserChoice() {
         Scanner input = new Scanner(System.in);
         System.out.print("Please select an option from the menu: ");
-        userChoice = input.next();
+        userChoice = Integer.parseInt(input.next());
+    }
+
+    public int getUserChoice() {
         return userChoice;
+    }
+
+    public Boolean validMenuChoice() {
+        return (userChoice <= menuSize);
+    }
+
+    public String invalidMenuChoice() {
+        return "Select a valid option!";
     }
 
 }

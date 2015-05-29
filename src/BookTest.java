@@ -4,15 +4,15 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class BookTest {
+    private Book b;
 
     @Before
     public void setUp() throws Exception {
-
+        b = new Book("HeadFirst Java", "Kathy Sierra, Bert Bates", 2003);
     }
 
     @Test
     public void hasTitleAuthorYear() {
-        Book b = new Book("HeadFirst Java", "Kathy Sierra, Bert Bates", 2003);
         assertEquals(b.getTitle(), "HeadFirst Java");
         assertEquals(b.getAuthor(), "Kathy Sierra, Bert Bates");
         assertEquals(b.getYear(), 2003);
@@ -20,7 +20,6 @@ public class BookTest {
 
     @Test
     public void isAvailableOnInitialization() {
-        Book b = new Book("HeadFirst Java", "Kathy Sierra, Bert Bates", 2003);
         assertEquals(b.getAvailability(), true);
     }
 
