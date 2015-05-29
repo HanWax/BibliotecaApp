@@ -12,7 +12,7 @@ public class CollectionManager {
 
         String bookList = "";
         for (Book book : bookCollection) {
-            if (book.isAvailable) {
+            if (book.getAvailability()) {
                 bookList += book.getTitle() + " by " +  book.getAuthor() + ", " + book.getYear();
             }
         }
@@ -20,8 +20,8 @@ public class CollectionManager {
     }
 
     public String checkoutBook(Book book) {
-        if (bookCollection.contains(book) && book.isAvailable) {
-            book.isAvailable = false;
+        if (bookCollection.contains(book) && book.getAvailability()) {
+            book.makeUnavailable();
             return "Thank you! Enjoy the book";
         } else {
             return "That book is not available.";
@@ -29,8 +29,8 @@ public class CollectionManager {
     }
 
     public String returnBook(Book book) {
-        if (bookCollection.contains(book) && !book.isAvailable ) {
-            book.isAvailable = true;
+        if (bookCollection.contains(book) && !book.getAvailability() ) {
+            book.makeAvailable();
             return "Thank you for returning the book.";
         } else {
             return "That is not a valid book to return.";

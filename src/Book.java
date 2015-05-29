@@ -24,6 +24,14 @@ public class Book {
         return year;
     }
 
+    public Boolean makeAvailable() {
+        return isAvailable = true;
+    }
+
+    public Boolean makeUnavailable() {
+        return isAvailable = false;
+    }
+
     public Boolean getAvailability() {
         return isAvailable;
     }

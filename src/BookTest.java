@@ -23,4 +23,12 @@ public class BookTest {
         assertEquals(b.getAvailability(), true);
     }
 
+    @Test
+    public void canSetAvailability() {
+        b.makeUnavailable();
+        assertEquals(b.getAvailability(), false);
+        b.makeAvailable();
+        assertEquals(b.getAvailability(), true);
+    }
+
 }
