@@ -7,7 +7,7 @@ public class BibliotecaApp {
 
         System.out.println(b.welcomeUser());
         b.setUp();
-        b.menuOperations();
+        b.activateMenu();
     }
 
     public void setUp() {
@@ -23,14 +23,14 @@ public class BibliotecaApp {
     public void choose(int choice) {
         if (choice == 1) {
             System.out.println(cm.listBookCollection());
-            menuOperations();
+            activateMenu();
         } else if (choice == 2) {
             System.out.println("You have quit the menu");
         }
 
     }
 
-    public void menuOperations() {
+    public void activateMenu() {
         System.out.println(menu.displayMenu());
         menu.setUserChoice();
         if (menu.validMenuChoice()) {
@@ -38,7 +38,7 @@ public class BibliotecaApp {
         }
         else {
             System.out.println(menu.invalidMenuChoice());
-            menuOperations();
+            activateMenu();
         }
 
     }

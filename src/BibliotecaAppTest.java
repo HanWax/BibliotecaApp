@@ -20,9 +20,10 @@ public class BibliotecaAppTest {
         headfirst = new Book("HeadFirst Java", "Kathy Sierra, Bert Bates", 2003);
     }
 
-//    @Test
-//    public void printsWelcomeMessage() {
-//        assertEquals(biblioteca.welcomeUser(), "Welcome to Biblioteca. The app is ready to use.");
-//    }
+    @Test
+    public void printsWelcomeMessage() {
+        assertEquals(biblioteca.welcomeUser(), "Welcome to Biblioteca. The app is ready to use.");
+    }
+
 
 }

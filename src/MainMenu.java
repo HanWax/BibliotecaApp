@@ -19,6 +19,7 @@ public class MainMenu {
         for(String options : menuOptions) {
             menu += options + " ";
         }
+        System.out.println("Please select an option from the menu: ");
         return menu;
     }
 
@@ -32,7 +33,6 @@ public class MainMenu {
 
     public void setUserChoice() {
         Scanner input = new Scanner(System.in);
-        System.out.print("Please select an option from the menu: ");
         userChoice = Integer.parseInt(input.next());
     }
 
