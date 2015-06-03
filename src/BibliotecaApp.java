@@ -1,19 +1,22 @@
 public class BibliotecaApp {
     MainMenu menu = new MainMenu();
-    CollectionManager cm = new CollectionManager();
+    CollectionManager bookCollection = new CollectionManager();
+    CollectionManager movieCollection = new CollectionManager();
 
     public static void main (String[] args) {
-        BibliotecaApp b = new BibliotecaApp();
+        BibliotecaApp biblioteca = new BibliotecaApp();
 
-        System.out.println(b.welcomeUser());
-        b.setUp();
-        b.activateMenu();
+        System.out.println(biblioteca.welcomeUser());
+        biblioteca.setUp();
+        biblioteca.activateMenu();
     }
 
     public void setUp() {
         menu.addOption("1. List Books ");
-        menu.addOption("2. Quit ");
-        cm.addBook(new Book("HeadFirst Java", "Kathy Sierra, Bert Bates", 2003));
+        menu.addOption("2. List Movies ");
+        menu.addOption("3. Quit ");
+        bookCollection.addResource(new Book("HeadFirst Java", "Kathy Sierra, Bert Bates", 2003));
+        movieCollection.addResource(new Movie("Far from the Madding Crowd", "Thomas Vinterberg", 2015, 9));
     }
 
     public String welcomeUser() {
@@ -22,9 +25,12 @@ public class BibliotecaApp {
 
     public void choose(int choice) {
         if (choice == 1) {
-            System.out.println(cm.listBookCollection());
+            System.out.println(bookCollection.listResourceCollection());
             activateMenu();
         } else if (choice == 2) {
+            System.out.println(movieCollection.listResourceCollection());
+            activateMenu();
+        } else if (choice == 3) {
             System.out.println("You have quit the menu");
         }
 

@@ -5,63 +5,86 @@ import java.util.ArrayList;
 
 public class CollectionManagerTest {
 
-    private CollectionManager cm;
+    private CollectionManager bookCollection;
     private Book b;
+    private User hannah;
+
+    public void login() {
+        hannah.login("333-3333", "super secret password");
+    }
 
     @Before
     public void setUp() throws Exception {
-        cm = new CollectionManager();
+        bookCollection = new CollectionManager();
         b = new Book("HeadFirst Java", "Kathy Sierra, Bert Bates", 2003);
-        cm.addBook(b);
+        bookCollection.addResource(b);
+        hannah = new User("Hannah", "hannah@example.com", "07777777777");
     }
 
     @Test
     public void hasListOfLibraryBooks() {
-        assertEquals(cm.listBookCollection(), "HeadFirst Java by Kathy Sierra, Bert Bates, 2003");
+        assertEquals(bookCollection.listResourceCollection(), "HeadFirst Java by Kathy Sierra, Bert Bates, 2003");
     }
 
     @Test
     public void unavailableBooksNotListed() {
-        cm.checkoutBook(b);
-        assertEquals(cm.listBookCollection(), "");
+        login();
+        bookCollection.checkoutResource(b, hannah);
+        assertEquals(bookCollection.listResourceCollection(), "");
     }
 
     @Test
-    public void canCheckoutBooks() {
-        assertEquals(cm.checkoutBook(b), "Thank you! Enjoy the book");
+    public void canCheckoutBooksIfLoggedIn() {
+        login();
+        assertEquals(bookCollection.checkoutResource(b, hannah), "Thank you! Enjoy the resource");
         assertEquals(b.getAvailability(), false);
+    }
+
+    @Test
+    public void cannotCheckoutBooksIfLoggedOut() {
+        assertEquals(bookCollection.checkoutResource(b, hannah), "That resource is not available.");
     }
 
     @Test
     public void cannotCheckoutBooksNotInCollection() {
         Book hobbit = new Book("The Hobbit", "JRR Tolkein", 1937);
-        assertEquals(cm.checkoutBook(hobbit), "That book is not available.");
+        assertEquals(bookCollection.checkoutResource(hobbit, hannah), "That resource is not available.");
 
     }
 
     @Test
     public void cannotCheckoutUnavailableBooks() {
         b.makeUnavailable();
-        assertEquals(cm.checkoutBook(b), "That book is not available.");
+        assertEquals(bookCollection.checkoutResource(b, hannah), "That resource is not available.");
     }
 
     @Test
-    public void canReturnBooks() {
-        cm.checkoutBook(b);
+    public void canReturnBooksIfLoggedIn() {
+        login();
+        bookCollection.checkoutResource(b, hannah);
         assertEquals(b.getAvailability(), false);
-        assertEquals(cm.returnBook(b), "Thank you for returning the book.");
+        assertEquals(bookCollection.returnResource(b, hannah), "Thank you for returning the resource.");
         assertEquals(b.getAvailability(), true);
     }
 
     @Test
     public void cannotReturnAvailableBooks() {
-        assertEquals(cm.returnBook(b), "That is not a valid book to return.");
+        assertEquals(bookCollection.returnResource(b, hannah), "That is not a valid resource to return.");
+    }
+
+    @Test
+    public void cannotReturnUnavailableBooksIfLoggedOut() {
+        login();
+        bookCollection.checkoutResource(b, hannah);
+        assertEquals(b.getAvailability(), false);
+        hannah.logout();
+        assertEquals(bookCollection.returnResource(b, hannah), "That is not a valid resource to return.");
     }
 
     @Test
     public void cannotReturnBooksNotInCollection() {
         Book hobbit = new Book("The Hobbit", "JRR Tolkein", 1937);
-        assertEquals(cm.returnBook(hobbit), "That is not a valid book to return.");
+        assertEquals(bookCollection.returnResource(hobbit, hannah), "That is not a valid resource to return.");
     }
 
 

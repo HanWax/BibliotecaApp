@@ -2,38 +2,39 @@ import java.util.ArrayList;
 
 public class CollectionManager {
 
-    private ArrayList<Book> bookCollection = new ArrayList<>();
+    private ArrayList<BorrowableResource> resourceCollection = new ArrayList<>();
 
-    public void addBook(Book book) {
-        bookCollection.add(book);
+    public void addResource(BorrowableResource resource) {
+        resourceCollection.add(resource);
     }
 
-    public String listBookCollection() {
+    public String listResourceCollection() {
 
-        String bookList = "";
-        for (Book book : bookCollection) {
-            if (book.getAvailability()) {
-                bookList += book.getTitle() + " by " +  book.getAuthor() + ", " + book.getYear();
+        String resourceList = "";
+        for (BorrowableResource resource : resourceCollection) {
+            if (resource.getAvailability()) {
+                resourceList += resource.getTitle() + " by " +  resource.getAuthor() + ", " + resource.getYear();
             }
         }
-        return bookList;
+        return resourceList;
     }
 
-    public String checkoutBook(Book book) {
-        if (bookCollection.contains(book) && book.getAvailability()) {
-            book.makeUnavailable();
-            return "Thank you! Enjoy the book";
+    public String checkoutResource(BorrowableResource resource, User user) {
+        if (resourceCollection.contains(resource) && resource.getAvailability() && user.getLoggedIn()) {
+            resource.makeUnavailable();
+            resource.setBorrower(user);
+            return "Thank you! Enjoy the resource";
         } else {
-            return "That book is not available.";
+            return "That resource is not available.";
         }
     }
 
-    public String returnBook(Book book) {
-        if (bookCollection.contains(book) && !book.getAvailability() ) {
-            book.makeAvailable();
-            return "Thank you for returning the book.";
+    public String returnResource(BorrowableResource resource, User user) {
+        if (resourceCollection.contains(resource) && !resource.getAvailability() && user.getLoggedIn()) {
+            resource.makeAvailable();
+            return "Thank you for returning the resource.";
         } else {
-            return "That is not a valid book to return.";
+            return "That is not a valid resource to return.";
         }
     }
 }
